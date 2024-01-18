@@ -29,6 +29,7 @@ with PodmanClient(base_url=uri) as client:
         c.remove()
 
     image = client.images.get("2cf8285eaa56")
+    print(f"Starting container image {image.tags[0]}.")
     container = client.containers.run(
         image,
         "/usr/bin/bash",
