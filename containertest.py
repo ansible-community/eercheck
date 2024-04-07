@@ -37,7 +37,7 @@ def main():
             c.remove()
 
         image = client.images.get(image_id)
-        if image_id.find('minimal') != -1:
+        if image.tags[0].find('minimal') != -1:
             type_of_image = 'minimal'
         else:
             type_of_image = 'base'

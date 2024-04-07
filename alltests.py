@@ -54,6 +54,8 @@ class eertest(unittest.TestCase):
             self.assertIn(f"ansible.posix   {data['ansible.posix']}", out)
             self.assertIn(f"ansible.utils   {data['ansible.utils']}", out)
             self.assertIn(f"ansible.windows {data['ansible.windows']}", out)
+        else:
+            self.assertIsNot(eid,0)
 
 
 if __name__ == "__main__":
