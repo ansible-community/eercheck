@@ -53,9 +53,12 @@ def main():
             environment={"IMAGENAME": type_of_image},
         )
         code, output = container.exec_run("/usr/bin/python3 /runner/alltests.py")
-
         print(output.decode("utf-8", errors="ignore"))
+        return code
+
+
 
 if __name__ == "__main__":
-    main()
+    code = main()
+    sys.exit(code)
 
