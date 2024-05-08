@@ -4,6 +4,7 @@ import unittest
 import os
 import subprocess
 import json
+import sys
 
 with open("/runner/vars.json", "r") as fobj:
     data = json.load(fobj)
@@ -59,7 +60,8 @@ class eertest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    status_code = unittest.main()
+    sys.exit(status_code)
 
 # get all test variables reading the test input file
 # write the collection test apt both for base and minimal
