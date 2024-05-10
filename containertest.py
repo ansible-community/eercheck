@@ -3,13 +3,21 @@
 from podman import PodmanClient
 import os
 import sys
+import subprocess
 
 def main():
     if len(sys.argv) < 2:
         print("Please provide the image id to test.")
         sys.exit(-1)
     image_id = sys.argv[1]
-    uri = "unix:///run/user/1000/podman/podman.sock"
+
+    output = subprocess.check_output(["systemctl", "status", "podman.socket", "--user"]).decode("utf-8")
+    for line in output.split('\n'):
+        line = line.strip()
+        if line.startswith("Listen:"):
+            words = line.split()
+            uri = "unix://" + words[1]
+
     dir_name = os.path.dirname(os.path.realpath(__file__))
 
     volume = [
