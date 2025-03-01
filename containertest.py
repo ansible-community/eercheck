@@ -11,6 +11,7 @@ def main():
         sys.exit(-1)
     image_id = sys.argv[1]
 
+    subprocess.check_output(["systemctl", "start", "podman.socket", "--user"])
     output = subprocess.check_output(["systemctl", "status", "podman.socket", "--user"]).decode("utf-8")
     for line in output.split('\n'):
         line = line.strip()
