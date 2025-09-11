@@ -49,12 +49,14 @@ class eertest(unittest.TestCase):
 
     def test_collection_version(self):
         """Tests the coleections version as the same of upstream"""
-        out, err, eid = system("ansible-galaxy collection list")
+        out, err, eid = system("ansible-galaxy collection list --format json")
         out = out.decode("utf-8")
+        out_dict = json.loads(out)
         if os.environ.get("IMAGENAME") == "base":
-            self.assertIn(f"ansible.posix        {data['ansible.posix']}", out)
-            self.assertIn(f"ansible.utils        {data['ansible.utils']}", out)
-            self.assertIn(f"ansible.windows        {data['ansible.windows']}", out)
+            self.assertIn(data['ansible.posix'], out_dict["/usr/share/ansible/collections/ansible_collections"]["ansible.posix"]["version"])
+            self.assertIn(data['ansible.utils'], out_dict["/usr/share/ansible/collections/ansible_collections"]["ansible.utils"]["version"])
+            self.assertIn(data['ansible.windows'], out_dict["/usr/share/ansible/collections/ansible_collections"]["ansible.windows"]["version"])
+
         else:
             self.assertIsNot(eid,0)
 
