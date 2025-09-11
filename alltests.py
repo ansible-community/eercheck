@@ -56,9 +56,9 @@ class eertest(unittest.TestCase):
             self.assertIn(data['ansible.posix'], out_dict["/usr/share/ansible/collections/ansible_collections"]["ansible.posix"]["version"])
             self.assertIn(data['ansible.utils'], out_dict["/usr/share/ansible/collections/ansible_collections"]["ansible.utils"]["version"])
             self.assertIn(data['ansible.windows'], out_dict["/usr/share/ansible/collections/ansible_collections"]["ansible.windows"]["version"])
-
         else:
-            self.assertIsNot(eid,0)
+            self.assertEqual(1, len(out_dict.keys()))
+            self.assertTrue("/usr/local/lib/python3.13/site-packages/ansible/_internal/ansible_collections" in out_dict )
 
 
 if __name__ == "__main__":
