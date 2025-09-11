@@ -52,9 +52,9 @@ class eertest(unittest.TestCase):
         out, err, eid = system("ansible-galaxy collection list")
         out = out.decode("utf-8")
         if os.environ.get("IMAGENAME") == "base":
-            self.assertIn(f"ansible.posix   {data['ansible.posix']}", out)
-            self.assertIn(f"ansible.utils   {data['ansible.utils']}", out)
-            self.assertIn(f"ansible.windows {data['ansible.windows']}", out)
+            self.assertIn(f"ansible.posix        {data['ansible.posix']}", out)
+            self.assertIn(f"ansible.utils        {data['ansible.utils']}", out)
+            self.assertIn(f"ansible.windows        {data['ansible.windows']}", out)
         else:
             self.assertIsNot(eid,0)
 
