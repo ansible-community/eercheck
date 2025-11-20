@@ -1,5 +1,5 @@
 {
-    "ansible-core-version": "2.19.3",
+    "ansible-core-version": "2.20.0",
     "fedora-version": "42",
     "ansible.posix": "2.1.0",
     "ansible.utils": "6.0.0",
