@@ -52,10 +52,7 @@ def main():
             type_of_image = 'base'
         print(f"Starting container image {image.tags[0]}.")
         version = image.tags[0].split(":")[1]
-        if version.startswith("2.19"):
-            image_ansible_version = "2.19"
-        else:
-            image_ansible_version = version[0:4]
+        image_ansible_version = ".".join(version.split(".")[:2])
         container = client.containers.run(
             image,
             "/usr/bin/bash",
