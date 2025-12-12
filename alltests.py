@@ -57,7 +57,12 @@ class eertest(unittest.TestCase):
             self.assertIn(data['ansible.utils'], out_dict["/usr/share/ansible/collections/ansible_collections"]["ansible.utils"]["version"])
             self.assertIn(data['ansible.windows'], out_dict["/usr/share/ansible/collections/ansible_collections"]["ansible.windows"]["version"])
         else:
-            self.assertIsNot(eid,0)
+            # Only in 2.19 series of releases we have `ansible._protomatter`
+            # In other releases there is no collection in the minimal image
+            if os.environ.get("IMAGE_ANSIBLE_VERSION") == "2.19":
+                self.assertEqual(eid,0)
+            else:
+                self.assertIsNot(eid,0)
 
 if __name__ == "__main__":
     status_code = unittest.main()
