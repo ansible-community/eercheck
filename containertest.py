@@ -51,6 +51,8 @@ def main():
         else:
             type_of_image = 'base'
         print(f"Starting container image {image.tags[0]}.")
+        version = image.tags[0].split(":")[1]
+        image_ansible_version = ".".join(version.split(".")[:2])
         container = client.containers.run(
             image,
             "/usr/bin/bash",
@@ -59,7 +61,7 @@ def main():
             tty=True,
             mounts=volume,
             remove=True,
-            environment={"IMAGENAME": type_of_image},
+            environment={"IMAGENAME": type_of_image, "IMAGE_ANSIBLE_VERSION": image_ansible_version},
         )
         code, output = container.exec_run("/usr/bin/python3 /runner/alltests.py")
         print(output.decode("utf-8", errors="ignore"))
