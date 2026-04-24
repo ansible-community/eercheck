@@ -1,7 +1,7 @@
 {
-    "ansible-core-version": "2.20.4",
-    "fedora-version": "43",
+    "ansible-core-version": "2.20.5",
+    "fedora-version": "44",
     "ansible.posix": "2.1.0",
-    "ansible.utils": "6.0.1",
+    "ansible.utils": "6.0.2",
     "ansible.windows": "3.5.0"
 }
