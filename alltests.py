@@ -48,7 +48,7 @@ class eertest(unittest.TestCase):
         self.assertIn(f"ansible [core {data['ansible-core-version']}", out)
 
     def test_collection_version(self):
-        """Tests the coleections version as the same of upstream"""
+        """Tests the collections version as the same of upstream"""
         out, err, eid = system("ansible-galaxy collection list --format json")
         out = out.decode("utf-8")
         if os.environ.get("IMAGENAME") == "base":
