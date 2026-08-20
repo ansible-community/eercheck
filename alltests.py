@@ -5,6 +5,7 @@ import os
 import subprocess
 import json
 import sys
+from packaging.version import Version
 
 with open("/runner/vars.json", "r") as fobj:
     data = json.load(fobj)
@@ -48,7 +49,7 @@ class eertest(unittest.TestCase):
         self.assertIn(f"ansible [core {data['ansible-core-version']}", out)
 
     def test_collection_version(self):
-        """Tests the coleections version as the same of upstream"""
+        """Tests the collections version as the same of upstream"""
         out, err, eid = system("ansible-galaxy collection list --format json")
         out = out.decode("utf-8")
         if os.environ.get("IMAGENAME") == "base":
@@ -60,9 +61,13 @@ class eertest(unittest.TestCase):
             # Only in 2.19 series of releases we have `ansible._protomatter`
             # In other releases there is no collection in the minimal image
             if os.environ.get("IMAGE_ANSIBLE_VERSION") == "2.19":
-                self.assertEqual(eid,0)
+                self.assertEqual(eid, 0)
+            # Starting from 2.21 "None of the provided paths were usable"
+            # is WARNING instead of ERROR. So eid must be 0.
+            elif Version(data['ansible-core-version']) < Version("2.21"):
+                self.assertIsNot(eid, 0)
             else:
-                self.assertIsNot(eid,0)
+                self.assertEqual(eid, 0)
 
 if __name__ == "__main__":
     status_code = unittest.main()

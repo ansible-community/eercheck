@@ -1,1 +1,2 @@
 podman==4.8.1
+packaging==26.3
